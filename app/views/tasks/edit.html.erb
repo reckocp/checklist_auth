@@ -1,0 +1,17 @@
+Edit an existing task:
+  <%= form_for :task, url: "/tasks/#{@task.id}", method: :PUT do |task| %>
+      <div>
+        <%= task.label :body %>
+        <%= task.text_field :body, class: 'input-field body', placeholder: "Type your task here.." %>
+      </div>
+
+      <div>
+        <%= task.label :position %>
+        <%= task.text_field :position, class: 'input-field position', placeholder: "What priority number is this?" %>
+      </div>
+
+    <div class='row'>
+      <%= task.submit %>
+    </div>
+  <% end %>
+</div>

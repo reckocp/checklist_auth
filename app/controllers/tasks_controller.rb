@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   def index
     @tasks = Task.order(position: :asc)
+    @task = Task.new
   end
 
   def show
@@ -17,11 +18,11 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.create(completed: params[:task][:completed],
+    @task = Task.new(completed: params[:task][:completed],
                body: params[:task][:body],
                position:params[:task][:position])
     @task.completed = false
-    
+
     if @task.save
       flash[:notice] = "Task added"
       redirect_to root_path
@@ -32,10 +33,24 @@ class TasksController < ApplicationController
     end
   end
 
+  def edit
+    @task = Task.find(params[:id])
+  end
+
   def update
+    Task.update(params[:id], task_params)
+    redirect_to root_path
   end
 
   def destroy
+    @task = Task.find(params[:id])
+    @task.destroy
+    redirect_to root_path
   end
 
+private
+
+def task_params
+params.require(:task).permit(:body, :position, :completed)
+end
 end

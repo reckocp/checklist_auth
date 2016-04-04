@@ -1,0 +1,27 @@
+<h1>Checklist Manager</h1>
+
+
+
+<div>
+  <ul>
+  <% @tasks.each do |task| %>
+    <li>
+      <p>Position: <%= task.position %></p></li>
+      <p>Has it been completed?: <%= task.completed %></p>
+      <p>Task: <%= task.body %></p>
+
+    </li>
+    <% end %>
+  </ul>
+</div>
+
+
+<div>
+  <%= form_for(Task.new) do |f| %>
+   <%= f.label :body %>
+   <%= f.text_field :body %>
+   <%= f.label :position %>
+   <%= f.text_field :position %>
+   <%= f.submit %>
+  <% end %>
+</div>

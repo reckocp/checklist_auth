@@ -1,21 +1,43 @@
+<header>
 <h1>Checklist Manager</h1>
+</header>
+<div class="new_task">
+Add a new task:
+  <%= form_for @task do |task| %>
+      <div>
+        <%= task.label :body %>
+        <%= task.text_field :body, class: 'input-field body', placeholder: "Type your task here.." %>
+      </div>
 
+      <div>
+        <%= task.label :position %>
+        <%= task.text_field :position, class: 'input-field position', placeholder: "What priority number is this?" %>
+      </div>
 
-
-<div>
-  <ul>
-  <% @tasks.each do |task| %>
-    <li>
-      <p>Position: <%= task.position %></p></li>
-      <p>Has it been completed?: <%= task.completed %></p>
-      <p>Task: <%= task.body %></p>
-      <%= task.id %>
-      <a href="/tasks/<%= task.id %>/edit">Edit this post</a>
-      <%= button_to "Delete", task_delete_path(task), method: :delete, class: 'Task' %>
-    </li>
-    <% end %>
-  </ul>
+    <div class='row'>
+      <a class="waves-effect waves-light btn"><%= task.submit %></a>
+    </div>
+  <% end %>
 </div>
+
+
+  <div>
+      <ul class="collection">
+    <% @tasks.each do |task| %>
+      <li class="collection-item">
+        <h4 class="position">Position: <%= task.position %></h4>
+        <p>Has it been completed?: <%= task.completed %></p>
+        <p>Task: <%= task.body %></p>
+        <div class="chip">
+          <a href="/tasks/<%= task.id %>/edit">Edit this post</a>
+        </div>
+        </br>
+        </br>
+        <a class="waves-effect waves-light btn"><%= button_to "Delete", task_delete_path(task), method: :delete, class: 'Task' %></a>
+      </li>
+      <% end %>
+      </ul>
+  </div>
 
 
 
@@ -31,20 +53,3 @@
     </ul>
   </div>
 <% end %>
-Add a new task:
-  <%= form_for @task do |task| %>
-      <div>
-        <%= task.label :body %>
-        <%= task.text_field :body, class: 'input-field body', placeholder: "Type your task here.." %>
-      </div>
-
-      <div>
-        <%= task.label :position %>
-        <%= task.text_field :position, class: 'input-field position', placeholder: "What priority number is this?" %>
-      </div>
-
-    <div class='row'>
-      <%= task.submit %>
-    </div>
-  <% end %>
-</div>

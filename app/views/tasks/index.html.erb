@@ -1,7 +1,9 @@
 <header>
 <h1>Checklist Manager</h1>
 </header>
-<div class="new_task">
+<div class="container">
+  <ul class="collection">
+    <li class="collection-item">
 Add a new task:
   <%= form_for @task do |task| %>
       <div>
@@ -18,7 +20,8 @@ Add a new task:
       <a class="waves-effect waves-light btn"><%= task.submit %></a>
     </div>
   <% end %>
-</div>
+    </li>
+  </ul>
 
 
   <div>
@@ -38,7 +41,7 @@ Add a new task:
       <% end %>
       </ul>
   </div>
-
+</div>
 
 
 <div>

@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  skip_before_action :authenticate_user
+
   def sign_in
   end
 
@@ -17,7 +19,7 @@ class SessionsController < ApplicationController
       flash[:alert] = "Username and password did not match any records"
       render :sign_in
     end
-  end 
+  end
 
   def destroy
     session[:user_id] = nil

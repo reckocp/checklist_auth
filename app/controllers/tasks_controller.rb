@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  skip_before_action :authoricate_user, :except => :show
+
   def index
     @tasks = Task.order(:id, position: :asc)
     @task = Task.new

@@ -53,3 +53,4 @@ end
 
 gem 'faker'
 gem 'puma'
+gem 'bcrypt'

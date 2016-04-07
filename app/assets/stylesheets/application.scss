@@ -18,6 +18,9 @@
  $primary-color: #F57C00;
  @import "materialize";
 
+body {
+  text-align: center;
+}
  header {
    text-align: center;
    border: 1px solid black;
@@ -29,7 +32,9 @@
   border: 1px solid black;
 }
 
-
+.btn {
+margin-bottom: 2em;
+}
 
 .collection-item {
   background-color: #F6A2AD;
@@ -37,4 +42,11 @@
 
 .position {
   font-weight: bold;
+}
+
+.navbuttons {
+  text-align: center;
+}
+.navbar {
+
 }

@@ -1,67 +1,69 @@
+<header>
+  <h1>Checklist Manager</h1>
+      <ul class="nav navbar-nav navbar">
+          <li class="navbuttons"><%= link_to "Home", tasks_path, class: "btn btn-primary" %> </li>
+        <% if signed_in? %>
+          <li class="navbuttons"> <%= link_to "Sign Out", sign_out_path, method: :DELETE, class: "btn btn-danger" %> </li>
+        <% else %>
+          <li class="navbuttons"> <%= link_to "Sign In", sign_in_path, class: "btn btn-primary" %> </li>
+          <li class="navbuttons"> <%= link_to "Sign Up", new_user_path, class: "btn btn-default" %> </li>
+        <% end %>
+      </ul>
+</header>
+<body>
+  <div class="container">
+    <ul class="collection">
+      <li class="collection-item">
+  Add a new task:
+    <%= form_for @task do |task| %>
+        <div>
+          <%= task.label :body %>
+          <%= task.text_field :body, class: 'input-field body', placeholder: "Type your task here.." %>
+        </div>
 
-<nav class='navbar navbar-default'>
-  <ul class="nav navbar-nav navbar">
-    <h1>Checklist Manager</h1>
-    <% if signed_in? %>
-      <li> <%= link_to "Sign Out", sign_out_path, method: :DELETE, class: "btn btn-danger" %> </li>
-    <% else %>
-      <li> <%= link_to "Sign In", sign_in_path, class: "btn btn-primary" %> </li>
-      <li> <%= link_to "Sign Up", new_user_path, class: "btn btn-default" %> </li>
+        <div>
+          <%= task.label :position %>
+          <%= task.text_field :position, class: 'input-field position', placeholder: "What priority number is this?" %>
+        </div>
+
+      <div class='row'>
+        <a class="waves-effect waves-light btn"><%= task.submit %></a>
+      </div>
     <% end %>
-  </ul>
-</nav>
-<div class="container">
-  <ul class="collection">
-    <li class="collection-item">
-Add a new task:
-  <%= form_for @task do |task| %>
-      <div>
-        <%= task.label :body %>
-        <%= task.text_field :body, class: 'input-field body', placeholder: "Type your task here.." %>
-      </div>
+      </li>
+    </ul>
 
-      <div>
-        <%= task.label :position %>
-        <%= task.text_field :position, class: 'input-field position', placeholder: "What priority number is this?" %>
-      </div>
 
-    <div class='row'>
-      <a class="waves-effect waves-light btn"><%= task.submit %></a>
+    <div>
+        <ul class="collection">
+      <% @tasks.each do |task| %>
+        <li class="collection-item">
+          <h4 class="position">Position: <%= task.position %></h4>
+          <p>Has it been completed?: <%= task.completed %></p>
+          <p>Task: <%= task.body %></p>
+          <div class="chip">
+            <a href="/tasks/<%= task.id %>/edit">Edit this post</a>
+          </div>
+          </br>
+          </br>
+          <a class="waves-effect waves-light btn"><%= button_to "Delete", task_delete_path(task), method: :delete, class: 'Task' %></a>
+        </li>
+        <% end %>
+        </ul>
     </div>
-  <% end %>
-    </li>
-  </ul>
+  </div>
 
 
   <div>
-      <ul class="collection">
-    <% @tasks.each do |task| %>
-      <li class="collection-item">
-        <h4 class="position">Position: <%= task.position %></h4>
-        <p>Has it been completed?: <%= task.completed %></p>
-        <p>Task: <%= task.body %></p>
-        <div class="chip">
-          <a href="/tasks/<%= task.id %>/edit">Edit this post</a>
-        </div>
-        </br>
-        </br>
-        <a class="waves-effect waves-light btn"><%= button_to "Delete", task_delete_path(task), method: :delete, class: 'Task' %></a>
-      </li>
+    <% if @task.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+
+      <ul>
+      <% @task.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
       <% end %>
       </ul>
-  </div>
-</div>
-
-
-<div>
-  <% if @task.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
-
-    <ul>
-    <% @task.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-<% end %>
+    </div>
+  <% end %>
+</body>
